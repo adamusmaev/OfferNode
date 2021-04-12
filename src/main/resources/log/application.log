@@ -1,0 +1,38 @@
+2021-04-12 13:35:48 INFO  ActuatorServiceApplication:12 - Start application
+2021-04-12 13:36:20 INFO  CategoryController:42 - Add category
+2021-04-12 13:36:53 INFO  ActuatorServiceApplication:12 - Start application
+2021-04-12 13:37:26 INFO  CategoryController:29 - search
+2021-04-12 13:39:12 INFO  ActuatorServiceApplication:12 - Start application
+2021-04-12 13:39:32 INFO  CategoryController:29 - search
+2021-04-12 13:50:49 INFO  ActuatorServiceApplication:12 - Start application
+2021-04-12 13:51:15 INFO  CategoryController:29 - search
+2021-04-12 13:51:33 INFO  CategoryController:43 - Add category
+2021-04-12 13:53:57 INFO  ActuatorServiceApplication:12 - Start application
+2021-04-12 13:54:32 INFO  CategoryController:29 - search
+2021-04-12 13:54:57 INFO  CategoryController:29 - search
+2021-04-12 13:55:29 INFO  ActuatorServiceApplication:12 - Start application
+2021-04-12 13:55:43 INFO  ActuatorServiceApplication:12 - Start application
+2021-04-12 13:56:02 INFO  CategoryController:30 - search
+2021-04-12 13:59:03 INFO  ActuatorServiceApplication:12 - Start application
+2021-04-12 13:59:20 INFO  CategoryController:30 - search
+2021-04-12 14:00:54 INFO  ActuatorServiceApplication:12 - Start application
+2021-04-12 14:01:15 INFO  CategoryController:30 - search
+2021-04-12 14:44:57 INFO  ActuatorServiceApplication:12 - Start application
+2021-04-12 14:45:18 INFO  CategoryController:30 - search
+2021-04-12 15:19:46 INFO  ActuatorServiceApplication:12 - Start application
+2021-04-12 15:20:49 INFO  CategoryController:30 - search
+2021-04-12 15:21:43 INFO  CategoryController:44 - Add category
+2021-04-12 15:21:54 INFO  CategoryController:30 - search
+2021-04-12 15:48:03 INFO  ActuatorServiceApplication:12 - Start application
+2021-04-12 15:50:59 INFO  ActuatorServiceApplication:12 - Start application
+2021-04-12 16:03:08 INFO  ActuatorServiceApplication:12 - Start application
+2021-04-12 17:06:16 INFO  ActuatorServiceApplication:12 - Start application
+2021-04-12 17:08:01 INFO  CategoryController:30 - search
+2021-04-12 17:09:46 INFO  CategoryController:30 - search
+2021-04-12 17:17:28 INFO  ActuatorServiceApplication:12 - Start application
+2021-04-12 17:20:17 INFO  ActuatorServiceApplication:12 - Start application
+2021-04-12 17:31:17 INFO  ActuatorServiceApplication:12 - Start application
+2021-04-12 17:37:10 INFO  ActuatorServiceApplication:12 - Start application
+2021-04-12 17:45:50 INFO  ActuatorServiceApplication:12 - Start application
+2021-04-12 17:48:51 INFO  ActuatorServiceApplication:12 - Start application
+2021-04-12 17:51:40 INFO  ActuatorServiceApplication:12 - Start application
