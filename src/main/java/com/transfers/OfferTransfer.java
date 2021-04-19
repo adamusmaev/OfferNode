@@ -15,7 +15,7 @@ public class OfferTransfer {
 
     private String name;
 
-    private Float pries;
+    private Float price;
 
     private CategoryTransfer categoryTransfer;
 
@@ -23,7 +23,7 @@ public class OfferTransfer {
 
     public OfferTransfer(Offer offer) {
         this.name = offer.getName();
-        this.pries = offer.getPrice();
+        this.price = offer.getPrice();
         this.categoryTransfer = new CategoryTransfer(offer.getCategory());
         if (!offer.getCharacteristics().isEmpty()) {
             for (Characteristic c : offer.getCharacteristics()) {

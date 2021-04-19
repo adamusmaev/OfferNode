@@ -33,16 +33,16 @@ public class OfferController {
         this.characteristicService = characteristicService;
     }
 
-    @PostMapping(value = "/addition")
+    @PostMapping()
     public void addOffer(@RequestBody OfferDetailsRequestModel offerDRM) {
         Offer offer = new Offer();
         offer.setName(offerDRM.getName());
-        offer.setPrice(offerDRM.getPries());
+        offer.setPrice(offerDRM.getPrice());
         offerService.saveOffer(offer);
     }
 
-    @PutMapping(value = "/additioncategory")
-    public void addCategoryForOffer(@RequestParam Integer offerId, @RequestParam Integer categoryId) {
+    @PutMapping(value = "/{offerId}/category/{categoryId}")
+    public void addCategoryForOffer(@PathVariable Integer offerId, @PathVariable Integer categoryId) {
         Offer offer = offerService.findOfferById(offerId);
         Category category = categoryService.findCategoryById(categoryId);
         if (offer == null) log.error("Offer is not in the database");
@@ -51,8 +51,8 @@ public class OfferController {
         offerService.saveOffer(offer);
     }
 
-    @PutMapping(value = "/additioncharacteristic")
-    public void addCharacteristicForOffer(@RequestParam Integer offerId, @RequestParam Integer characteristicId) {
+    @PutMapping(value = "/{offerId}/characteristic/{characteristicId}")
+    public void addCharacteristicForOffer(@PathVariable Integer offerId, @PathVariable Integer characteristicId) {
         Offer offer = offerService.findOfferById(offerId);
         if (offer == null) log.error("Offer is not in the database");
         Characteristic characteristic = characteristicService.findCharacteristicById(characteristicId);
@@ -63,7 +63,8 @@ public class OfferController {
         characteristicService.saveCharacteristic(characteristic);
     }
 
-    @GetMapping(value = "/all")
+    @GetMapping()
+    @ResponseBody
     public List<OfferTransfer> findAllOffers() {
         List<OfferTransfer> offerTransferListRes = new ArrayList<>();
         for (Offer o : offerService.findAllOffer()) {
@@ -72,16 +73,26 @@ public class OfferController {
         return offerTransferListRes;
     }
 
-    @GetMapping(value = "/search")
-    public OfferTransfer findOfferById(@RequestParam Integer offerId) {
+    @GetMapping(value = "/{offerId}")
+    @ResponseBody
+    public OfferTransfer findOfferById(@PathVariable Integer offerId) {
         Offer offer = offerService.findOfferById(offerId);
         if (offer == null) log.error("Offer is not in the database");
         return new OfferTransfer(offer);
     }
 
-    @DeleteMapping(value = "/deleteon")
-    public void deleteOffer(@RequestParam Integer offerId){
+    @DeleteMapping(value = "/{offerId}")
+    public void deleteOffer(@PathVariable Integer offerId) {
         Offer offer = offerService.findOfferById(offerId);
         offerService.deleteOffer(offer);
     }
+
+    @PutMapping("/{offerId}")
+    public void updateOffer(@PathVariable Integer offerId, @RequestBody OfferDetailsRequestModel offerDRM) {
+        Offer offer = offerService.findOfferById(offerId);
+        offer.setName(offerDRM.getName());
+        offer.setPrice(offerDRM.getPrice());
+        offerService.saveOffer(offer);
+    }
+
 }

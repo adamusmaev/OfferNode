@@ -24,7 +24,7 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping(value = "/all")
+    @GetMapping()
     @ResponseBody
     public List<CategoryTransfer> findCategory() {
         List<CategoryTransfer> categoryTransfers = new ArrayList<>();
@@ -35,7 +35,7 @@ public class CategoryController {
         return categoryTransfers;
     }
 
-    @PostMapping(value = "/addition")
+    @PostMapping()
     public void addCategory(@RequestBody CategoryDetailsRequestModel categoryDRM) {
         Category category = new Category();
         category.setName(categoryDRM.getName());

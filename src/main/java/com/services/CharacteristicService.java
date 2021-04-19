@@ -26,8 +26,12 @@ public class CharacteristicService {
         if (characteristicTmp == null) log.error("Сharacteristics not in the database");
         else characteristicRepo.delete(characteristic);
     }
-    public Characteristic findCharacteristicById(Integer id)
-    {
+
+    public Characteristic findCharacteristicById(Integer id) {
         return characteristicRepo.findById(id).orElse(null);
+    }
+    public Characteristic findCharacteristicByNameAndDescription(String name, String description)
+    {
+        return characteristicRepo.findCharacteristicByDescriptionAndAndName(name,description);
     }
 }
