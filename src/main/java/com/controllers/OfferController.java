@@ -1,5 +1,6 @@
 package com.controllers;
 
+import com.detailsrequestmodels.CharacteristicDetailsRequestModel;
 import com.detailsrequestmodels.OfferDetailsRequestModel;
 import com.entities.Category;
 import com.entities.Characteristic;
@@ -10,7 +11,6 @@ import com.services.OfferService;
 import com.transfers.OfferTransfer;
 import lombok.extern.log4j.Log4j;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -38,6 +38,25 @@ public class OfferController {
         Offer offer = new Offer();
         offer.setName(offerDRM.getName());
         offer.setPrice(offerDRM.getPrice());
+        List<Characteristic> characteristicList = new ArrayList<>();
+        offer.setCharacteristics(characteristicList);
+        for (CharacteristicDetailsRequestModel c : offerDRM.getCharacteristicDRM()) {
+            if (characteristicService.containInBase(c.getName())) {
+                Characteristic characteristic = characteristicService.findCharacteristicByName(c.getName());
+                offer.getCharacteristics().add(characteristic);
+                characteristic.getOffers().add(offer);
+                characteristicService.saveCharacteristic(characteristic);
+            } else {
+                Characteristic characteristic = new Characteristic();
+                List<Offer> offerList = new ArrayList<>();
+                characteristic.setOffers(offerList);
+                characteristic.setName(c.getName());
+                characteristic.setDescription(c.getDescription());
+                offer.getCharacteristics().add(characteristic);
+                characteristic.getOffers().add(offer);
+                characteristicService.saveCharacteristic(characteristic);
+            }
+        }
         offerService.saveOffer(offer);
     }
 
@@ -92,6 +111,23 @@ public class OfferController {
         Offer offer = offerService.findOfferById(offerId);
         offer.setName(offerDRM.getName());
         offer.setPrice(offerDRM.getPrice());
+        for (CharacteristicDetailsRequestModel c : offerDRM.getCharacteristicDRM()) {
+            if (characteristicService.containInBase(c.getName())) {
+                Characteristic characteristic = characteristicService.findCharacteristicByName(c.getName());
+                offer.getCharacteristics().add(characteristic);
+                characteristic.getOffers().add(offer);
+                characteristicService.saveCharacteristic(characteristic);
+            } else {
+                Characteristic characteristic = new Characteristic();
+                List<Offer> offerList = new ArrayList<>();
+                characteristic.setOffers(offerList);
+                characteristic.setName(c.getName());
+                characteristic.setDescription(c.getDescription());
+                offer.getCharacteristics().add(characteristic);
+                characteristic.getOffers().add(offer);
+                characteristicService.saveCharacteristic(characteristic);
+            }
+        }
         offerService.saveOffer(offer);
     }
 

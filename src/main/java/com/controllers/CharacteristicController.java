@@ -4,13 +4,11 @@ import com.detailsrequestmodels.CharacteristicDetailsRequestModel;
 import com.entities.Characteristic;
 import com.services.CharacteristicService;
 import com.transfers.CharacteristicTransfer;
-import jdk.jfr.Label;
 import lombok.extern.log4j.Log4j;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 

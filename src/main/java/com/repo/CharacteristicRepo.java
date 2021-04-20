@@ -7,4 +7,5 @@ import javax.persistence.criteria.CriteriaBuilder;
 
 public interface CharacteristicRepo extends CrudRepository<Characteristic, Integer>{
     Characteristic findCharacteristicByDescriptionAndAndName(String name, String description);
+    Characteristic findCharacteristicByName(String name);
 }

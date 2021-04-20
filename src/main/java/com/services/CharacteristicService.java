@@ -30,8 +30,17 @@ public class CharacteristicService {
     public Characteristic findCharacteristicById(Integer id) {
         return characteristicRepo.findById(id).orElse(null);
     }
-    public Characteristic findCharacteristicByNameAndDescription(String name, String description)
-    {
-        return characteristicRepo.findCharacteristicByDescriptionAndAndName(name,description);
+
+    public Characteristic findCharacteristicByNameAndDescription(String name, String description) {
+        return characteristicRepo.findCharacteristicByDescriptionAndAndName(name, description);
+    }
+
+    public Characteristic findCharacteristicByName(String name){
+        return characteristicRepo.findCharacteristicByName(name);
+    }
+
+    public boolean containInBase(String name){
+        if (characteristicRepo.findCharacteristicByName(name) == null) return false;
+        else return true;
     }
 }
