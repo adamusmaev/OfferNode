@@ -24,7 +24,7 @@ public class OfferTransfer {
     public OfferTransfer(Offer offer) {
         this.name = offer.getName();
         this.price = offer.getPrice();
-        this.categoryTransfer = new CategoryTransfer(offer.getCategory());
+        if (!(offer.getCategory() == null)) this.categoryTransfer = new CategoryTransfer(offer.getCategory());
         if (!offer.getCharacteristics().isEmpty()) {
             for (Characteristic c : offer.getCharacteristics()) {
                 characteristicTransfers.add(new CharacteristicTransfer(c));
