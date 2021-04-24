@@ -17,6 +17,8 @@ public class Offer {
 
     private Float price;
 
+
+
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private Category category;

@@ -1,27 +1,24 @@
 package com.transfers;
 
-import com.entities.Category;
 import com.entities.Characteristic;
 import com.entities.Offer;
 import lombok.Data;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Data
 public class OfferTransfer {
 
+    private Integer id;
     private String name;
-
     private Float price;
-
     private CategoryTransfer categoryTransfer;
-
     private List<CharacteristicTransfer> characteristicTransfers = new ArrayList<>();
 
+
     public OfferTransfer(Offer offer) {
+        this.id = offer.getId();
         this.name = offer.getName();
         this.price = offer.getPrice();
         if (!(offer.getCategory() == null)) this.categoryTransfer = new CategoryTransfer(offer.getCategory());
