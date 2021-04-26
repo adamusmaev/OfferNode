@@ -50,7 +50,6 @@ public class CharacteristicController {
     @PutMapping("/{characteristicId}")
     public void updateCharacteristic(@PathVariable Integer characteristicId, @RequestBody CharacteristicDetailsRequestModel characteristicDRM) {
         Characteristic characteristic = characteristicService.findCharacteristicById(characteristicId);
-        characteristic.setName(characteristicDRM.getName());
         characteristic.setDescription(characteristicDRM.getDescription());
         characteristicService.saveCharacteristic(characteristic);
     }
