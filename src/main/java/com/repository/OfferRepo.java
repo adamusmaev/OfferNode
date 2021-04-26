@@ -1,9 +1,7 @@
-package com.repo;
+package com.repository;
 
 import com.entities.Offer;
 import org.springframework.data.repository.CrudRepository;
-
-import javax.persistence.criteria.CriteriaBuilder;
 
 public interface OfferRepo extends CrudRepository<Offer, Integer> {
 }

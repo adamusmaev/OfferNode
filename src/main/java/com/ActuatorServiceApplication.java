@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @Log4j
 public class ActuatorServiceApplication {
-
     public static void main(String[] args) {
         log.info("Start application");
         SpringApplication.run(ActuatorServiceApplication.class, args);
