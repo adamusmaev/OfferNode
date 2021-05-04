@@ -10,11 +10,24 @@ import com.services.CharacteristicService;
 import com.services.OfferService;
 import com.transfers.OfferTransfer;
 import lombok.extern.log4j.Log4j;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Scanner;
 
 @RestController
 @RequestMapping(value = "/offer", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -129,6 +142,49 @@ public class OfferController {
             }
         }
         offerService.saveOffer(offer);
+    }
+
+    @PostMapping("/{offerId}/paidtype/{paidTypeId}")
+    public void addPaidTypeForOffer(@PathVariable Integer offerId,
+                                    @PathVariable Integer paidTypeId) throws URISyntaxException, IOException {
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        HttpGet httpget = new HttpGet("http://customernode.jelastic.regruhosting.ru/paidtypes/"+paidTypeId);
+        HttpResponse httpresponse = httpclient.execute(httpget);
+        Scanner sc = new Scanner(httpresponse.getEntity().getContent());
+        JSONObject jsonObject = new JSONObject(sc.nextLine());
+        Offer offer = offerService.findOfferById(offerId);
+        offer.setPaidType((Integer) jsonObject.get("id"));
+        offerService.saveOffer(offer);
+    }
+
+    @GetMapping("/customer")
+    public List<OfferTransfer> getCustomer(@RequestParam String token) throws IOException, URISyntaxException {
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        HttpGet httpgetToken = new HttpGet("http://customernode.jelastic.regruhosting.ru/customer/id");
+        URI uri = new URIBuilder(httpgetToken.getURI())
+                        .addParameter("token", token)
+                        .build();
+        ((HttpRequestBase) httpgetToken).setURI(uri);
+        HttpResponse httpresponse = httpclient.execute(httpgetToken);
+        Scanner sc = new Scanner(httpresponse.getEntity().getContent());
+        HttpGet httpGetCustomer = new HttpGet("http://customernode.jelastic.regruhosting.ru/customer/"+sc.nextLine());
+        httpresponse = httpclient.execute(httpGetCustomer);
+        sc = new Scanner(httpresponse.getEntity().getContent());
+        JSONObject jsonObjectCustomer = new JSONObject(sc.nextLine());
+        JSONArray jsonArrayPaidTypes = new JSONArray(jsonObjectCustomer.get("paidTypeTransfers").toString());
+        List<Integer> listPaidTypesId = new ArrayList<>();
+        for (int i = 0; i < jsonArrayPaidTypes.length(); i++){
+            JSONObject jsonObject = (JSONObject) jsonArrayPaidTypes.get(i);
+            listPaidTypesId.add(jsonObject.getInt("id"));
+        }
+        List<OfferTransfer> offerTransferList = new ArrayList<>();
+        for (int i = 0; i < listPaidTypesId.size(); i++){
+            Iterable<Offer> offerCollection = offerService.findAllOfferByPaidTypes(listPaidTypesId.get(i));
+            for (Offer o : offerCollection){
+                offerTransferList.add(new OfferTransfer(o));
+            }
+        }
+        return offerTransferList;
     }
 
 }
