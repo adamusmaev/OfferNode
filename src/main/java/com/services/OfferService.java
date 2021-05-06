@@ -6,6 +6,8 @@ import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Log4j
 public class OfferService {
@@ -29,5 +31,9 @@ public class OfferService {
     public Offer findOfferById(Integer id)
     {
         return offerRepo.findById(id).orElse(null);
+    }
+
+    public Iterable<Offer> findAllOfferByPaidTypes(Integer paidTypesId){
+        return offerRepo.findOffersByPaidType(paidTypesId);
     }
 }
