@@ -40,6 +40,10 @@ public class OfferController {
 
     private final CharacteristicService characteristicService;
 
+    private final String httpGetCustomerField = "http://customernode.jelastic.regruhosting.ru/customer/";
+
+    private final String httpGetPaidType = "http://customernode.jelastic.regruhosting.ru/paidtypes/";
+
     public OfferController(OfferService offerService, CategoryService categoryService, CharacteristicService characteristicService) {
         this.offerService = offerService;
         this.categoryService = categoryService;
@@ -148,7 +152,7 @@ public class OfferController {
     public void addPaidTypeForOffer(@PathVariable Integer offerId,
                                     @PathVariable Integer paidTypeId) throws URISyntaxException, IOException {
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpget = new HttpGet("http://customernode.jelastic.regruhosting.ru/paidtypes/"+paidTypeId);
+        HttpGet httpget = new HttpGet(httpGetPaidType+paidTypeId);
         HttpResponse httpresponse = httpclient.execute(httpget);
         Scanner sc = new Scanner(httpresponse.getEntity().getContent());
         JSONObject jsonObject = new JSONObject(sc.nextLine());
@@ -160,14 +164,14 @@ public class OfferController {
     @GetMapping("/customer")
     public List<OfferTransfer> getCustomer(@RequestParam String token) throws IOException, URISyntaxException {
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpgetToken = new HttpGet("http://customernode.jelastic.regruhosting.ru/customer/id");
+        HttpGet httpgetToken = new HttpGet(httpGetCustomerField + "id");
         URI uri = new URIBuilder(httpgetToken.getURI())
                         .addParameter("token", token)
                         .build();
         ((HttpRequestBase) httpgetToken).setURI(uri);
         HttpResponse httpresponse = httpclient.execute(httpgetToken);
         Scanner sc = new Scanner(httpresponse.getEntity().getContent());
-        HttpGet httpGetCustomer = new HttpGet("http://customernode.jelastic.regruhosting.ru/customer/"+sc.nextLine());
+        HttpGet httpGetCustomer = new HttpGet(httpGetCustomerField+sc.nextLine());
         httpresponse = httpclient.execute(httpGetCustomer);
         sc = new Scanner(httpresponse.getEntity().getContent());
         JSONObject jsonObjectCustomer = new JSONObject(sc.nextLine());
