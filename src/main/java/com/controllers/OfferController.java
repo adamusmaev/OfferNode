@@ -40,9 +40,9 @@ public class OfferController {
 
     private final CharacteristicService characteristicService;
 
-    private final String httpGetCustomerField = "http://customernode.jelastic.regruhosting.ru/customer/";
+    private final String httpGetCustomerField = "http://customer.jelastic.regruhosting.ru/customer/";
 
-    private final String httpGetPaidType = "http://customernode.jelastic.regruhosting.ru/paidtypes/";
+    private final String httpGetPaidType = "http://customer.jelastic.regruhosting.ru/paidtypes/";
 
     public OfferController(OfferService offerService, CategoryService categoryService, CharacteristicService characteristicService) {
         this.offerService = offerService;
